@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Political-O-meter</title>
+    <style>
+        *{
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+    <input id="tweet-input" type="text">
+    <button id="tweet-button">Calculate political odds</button>
+    <p id="metric"></p>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $("#tweet-button").click(function(event){
+            let tweet = {
+                'tweet': $("#tweet-input").val()
+            }
+            $.post("http://localhost:5000/model", JSON.stringify(tweet), function(response){
+                $("#metric").text(response.polMetric);
+                console.log(response)
+            });
+        });
+    </script>
+</body>
+</html>
